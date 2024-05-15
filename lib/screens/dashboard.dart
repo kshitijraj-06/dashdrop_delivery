@@ -1,16 +1,14 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:dashdrop_delivery/screens/account%20settings.dart';
 import 'package:dashdrop_delivery/screens/add%20product.dart';
-import 'package:dashdrop_delivery/screens/chat&support.dart';
+import 'package:dashdrop_delivery/screens/chats/group_chat.dart';
 import 'package:dashdrop_delivery/screens/earning.dart';
+import 'package:dashdrop_delivery/screens/live_location.dart';
 import 'package:dashdrop_delivery/screens/order_details.dart';
 import 'package:dashdrop_delivery/screens/profile.dart';
-import 'package:dashdrop_delivery/screens/track_location.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_image_slideshow/flutter_image_slideshow.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:animated_flutter_widgets/animated_widgets.dart';
 
 class DashboardScreen extends StatefulWidget {
   const DashboardScreen({super.key});
@@ -22,26 +20,6 @@ class DashboardScreen extends StatefulWidget {
 class _DashboardScreenState extends State<DashboardScreen> {
   final user = FirebaseAuth.instance.currentUser;
 
-  // Future<void> fetchUserInfoFromFirestore() async{
-  //   try{
-  //     QuerySnapshot querySnapshot = await FirebaseFirestore.instance
-  //         .collection('users')
-  //         .get();
-  //
-  //     setState(() {
-  //        users = querySnapshot.docs.map((doc) {
-  //         print('ID : ${doc.id}');
-  //         print('DATA " ${doc.data()}');
-  //         return {
-  //           'userId' : doc.id,
-  //           'name' : doc['name'],
-  //         };
-  //       }).toString();
-  //     });
-  //   }catch(e){
-  //     print('Error fetching users: $e');
-  //   }
-  // }
 
   @override
   Widget build(BuildContext context) {
@@ -93,7 +71,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
                             Navigator.push(
                                 context,
                                 MaterialPageRoute(
-                                    builder: (context) => ProfilePage()));
+                                    builder: (context) => const ProfilePage()));
                           },
                           child: CircleAvatar(
                             radius: 20,
@@ -111,19 +89,6 @@ class _DashboardScreenState extends State<DashboardScreen> {
                             textAlign: TextAlign.center,
                           ),
                         ),
-                        GestureDetector(
-                            onTap: () {
-                              print('clicked');
-                              Navigator.pushReplacement(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: (context) => AccountSettings()));
-                            },
-                            child: Icon(
-                              Icons.manage_accounts,
-                              color: Colors.white,
-                              size: 33,
-                            )),
                       ],
                     ),
                   ),
@@ -143,7 +108,11 @@ class _DashboardScreenState extends State<DashboardScreen> {
                               fit: BoxFit.fill,
                             ),
                             Image.network(
-                              'https://img.freepik.com/free-vector/gradient-mountain-landscape_23-2149159772.jpg',
+                              'https://firebasestorage.googleapis.com/v0/b/dashdrop-1d768.appspot.com/o/items%2Fbanner2.jpg?alt=media&token=7ebfe473-2724-435d-84b5-3de6683930c0',
+                              fit: BoxFit.fill,
+                            ),
+                            Image.network(
+                              'https://firebasestorage.googleapis.com/v0/b/dashdrop-1d768.appspot.com/o/items%2Fbanner3.jpg?alt=media&token=44ee3e5b-b1cc-4f46-8410-d560b8acb3df',
                               fit: BoxFit.fill,
                             )
                           ]),
@@ -159,7 +128,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
                 textAlign: TextAlign.start,
                 style: GoogleFonts.montserrat(
                     textStyle:
-                        TextStyle(fontSize: 20, fontWeight: FontWeight.w600)),
+                        const TextStyle(fontSize: 20, fontWeight: FontWeight.w600)),
               ),
               SingleChildScrollView(
                 scrollDirection: Axis.horizontal,
@@ -171,7 +140,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
                         Navigator.push(
                             context,
                             MaterialPageRoute(
-                                builder: (context) => AddProduct()));
+                                builder: (context) => const AddProduct()));
                       }),
                     ),
                     Container(
@@ -179,7 +148,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
                         Navigator.push(
                             context,
                             MaterialPageRoute(
-                                builder: (context) => OrderDetails()));
+                                builder: (context) => const OrderDetails()));
                       }),
                     ),
                     Container(
@@ -188,7 +157,15 @@ class _DashboardScreenState extends State<DashboardScreen> {
                             context,
                             MaterialPageRoute(
                                 builder: (context) =>
-                                    FarmerEarningsOverviewPage()));
+                                    const FarmerEarningsOverviewPage()));
+                      }),
+                    ),
+                    Container(
+                      child: _buildHorizontalCard('Location & Tracking', () {
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => const LiveLocation()));
                       }),
                     ),
                     Container(
@@ -196,30 +173,22 @@ class _DashboardScreenState extends State<DashboardScreen> {
                         Navigator.push(
                             context,
                             MaterialPageRoute(
-                                builder: (context) => ChatAndSupport()));
-                      }),
-                    ),
-                    Container(
-                      child: _buildHorizontalCard('Chat & Support', () {
-                        Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => LiveLocation()));
+                                builder: (context) => ChatScreen(currentUserId: user!.uid)));
                       }),
                     ),
                   ],
                 ),
               ),
-              SizedBox(
+              const SizedBox(
                 height: 20,
               ),
               Text(
                 'Summary',
                 style: GoogleFonts.montserrat(
                     textStyle:
-                        TextStyle(fontSize: 20, fontWeight: FontWeight.w600)),
+                        const TextStyle(fontSize: 20, fontWeight: FontWeight.w600)),
               ),
-              SizedBox(
+              const SizedBox(
                 height: 10,
               ),
               Padding(
@@ -229,13 +198,13 @@ class _DashboardScreenState extends State<DashboardScreen> {
                     Text(
                       'Name :',
                       style: GoogleFonts.montserrat(
-                          textStyle: TextStyle(fontSize: 14)),
+                          textStyle: const TextStyle(fontSize: 14)),
                     ),
                     Expanded(
                         child: Text(
-                      name!,
+                      name,
                       style: GoogleFonts.montserrat(
-                          textStyle: TextStyle(fontSize: 14)),
+                          textStyle: const TextStyle(fontSize: 14)),
                       textAlign: TextAlign.end,
                     ))
                   ],
@@ -248,7 +217,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
                     Text(
                       'Number of Products Listed :',
                       style: GoogleFonts.montserrat(
-                          textStyle: TextStyle(fontSize: 14)),
+                          textStyle: const TextStyle(fontSize: 14)),
                     ),
                     FutureBuilder<int>(
                       future:
@@ -274,7 +243,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
                             textAlign: TextAlign.end,
                             '$totalOrders',
                             style: GoogleFonts.montserrat(
-                                textStyle: TextStyle(fontSize: 14)),
+                                textStyle: const TextStyle(fontSize: 14)),
                           ),
                         ); // Display the total orders
                       },
@@ -289,7 +258,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
                     Text(
                       'Total Order :',
                       style: GoogleFonts.montserrat(
-                          textStyle: TextStyle(fontSize: 14)),
+                          textStyle: const TextStyle(fontSize: 14)),
                     ),
                     FutureBuilder<int>(
                       future:
@@ -315,7 +284,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
                             textAlign: TextAlign.end,
                             '$totalOrders',
                             style: GoogleFonts.montserrat(
-                                textStyle: TextStyle(fontSize: 14)),
+                                textStyle: const TextStyle(fontSize: 14)),
                           ),
                         ); // Display the total orders
                       },
@@ -330,13 +299,13 @@ class _DashboardScreenState extends State<DashboardScreen> {
                     Text(
                       'Amount (INR) :',
                       style: GoogleFonts.montserrat(
-                          textStyle: TextStyle(fontSize: 14)),
+                          textStyle: const TextStyle(fontSize: 14)),
                     ),
                     Expanded(
                         child: Text(
                       '10000',
                       style: GoogleFonts.montserrat(
-                          textStyle: TextStyle(fontSize: 14)),
+                          textStyle: const TextStyle(fontSize: 14)),
                       textAlign: TextAlign.end,
                     ))
                   ],

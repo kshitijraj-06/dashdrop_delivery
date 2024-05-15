@@ -1,9 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:dashdrop_delivery/services/logout%20service.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 import 'login_screen.dart';
@@ -109,7 +107,7 @@ class _ProfilePageState extends State<ProfilePage> {
                         child: Text('My Profile',
                             textAlign: TextAlign.center,
                             style: GoogleFonts.montserrat(
-                                textStyle: TextStyle(
+                                textStyle: const TextStyle(
                               fontSize: 27,
                               fontWeight: FontWeight.w600,
                             ))),
@@ -117,7 +115,7 @@ class _ProfilePageState extends State<ProfilePage> {
                     ],
                   ),
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 25,
                 ),
                 ClipRRect(
@@ -133,7 +131,7 @@ class _ProfilePageState extends State<ProfilePage> {
                   padding: const EdgeInsets.only(top: 15.0, left: 12),
                   child: Row(
                     children: [
-                      Icon(
+                      const Icon(
                         Icons.person,
                         size: 35,
                       ),
@@ -142,17 +140,17 @@ class _ProfilePageState extends State<ProfilePage> {
                           name,
                           textAlign: TextAlign.center,
                           style: GoogleFonts.montserrat(
-                              textStyle: TextStyle(fontSize: 22)),
+                              textStyle: const TextStyle(fontSize: 22)),
                         ),
                       ),
                     ],
                   ),
                 ),
                 Padding(
-                  padding: EdgeInsets.only(top: 35, left: 12),
+                  padding: const EdgeInsets.only(top: 35, left: 12),
                   child: Row(
                     children: [
-                      Icon(
+                      const Icon(
                         Icons.email,
                         size: 35,
                       ),
@@ -161,17 +159,17 @@ class _ProfilePageState extends State<ProfilePage> {
                         user?.email as String,
                         textAlign: TextAlign.center,
                         style: GoogleFonts.montserrat(
-                            textStyle: TextStyle(fontSize: 18)),
+                            textStyle: const TextStyle(fontSize: 18)),
                       ))
                     ],
                   ),
                 ),
                 Padding(
-                  padding: EdgeInsets.only(top: 35, left: 12),
+                  padding: const EdgeInsets.only(top: 35, left: 12),
                   child:
                   Row(
                     children: [
-                      Icon(
+                      const Icon(
                         Icons.phone,
                         size: 35,
                       ),
@@ -180,12 +178,12 @@ class _ProfilePageState extends State<ProfilePage> {
                         user?.phoneNumber ?? 'null',
                         textAlign: TextAlign.center,
                         style: GoogleFonts.montserrat(
-                            textStyle: TextStyle(fontSize: 18)),
+                            textStyle: const TextStyle(fontSize: 18)),
                       )),
                     ],
                   ),
                 ),
-                Spacer(),
+                const Spacer(),
                 Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: GestureDetector(
@@ -195,12 +193,12 @@ class _ProfilePageState extends State<ProfilePage> {
                           //named krna h!!
                           context,
                           MaterialPageRoute(
-                              builder: (context) => LoginScreen()));
+                              builder: (context) => const LoginScreen()));
                     },
                     child: Text(
                       'Log Out',
                       style: GoogleFonts.montserrat(
-                          textStyle: TextStyle(
+                          textStyle: const TextStyle(
                               color: Colors.blue, fontWeight: FontWeight.w700)),
                     ),
                   ),

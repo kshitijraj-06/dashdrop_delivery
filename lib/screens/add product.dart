@@ -1,11 +1,10 @@
 import 'dart:async';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class AddProduct extends StatefulWidget {
-  AddProduct({super.key});
+  const AddProduct({super.key});
 
   @override
   State<AddProduct> createState() => _AddProductState(products: []);
@@ -90,7 +89,7 @@ class _AddProductState extends State<AddProduct> {
                         onTap: () {
                           Navigator.pop(context);
                         },
-                        child: Icon(Icons.arrow_back),
+                        child: const Icon(Icons.arrow_back),
                       ),
                       Expanded(
                         child: Text(
@@ -114,7 +113,7 @@ class _AddProductState extends State<AddProduct> {
                           fontSize: 24, fontWeight: FontWeight.w500)),
                   textAlign: TextAlign.center,
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 80,
                 ),
                 Padding(
@@ -124,13 +123,13 @@ class _AddProductState extends State<AddProduct> {
                       Text(
                         'Enter Details of Product',
                         style: GoogleFonts.montserrat(
-                            textStyle: TextStyle(
+                            textStyle: const TextStyle(
                                 fontSize: 12, fontWeight: FontWeight.bold)),
                       ),
                     ],
                   ),
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 10,
                 ),
                 Padding(
@@ -159,7 +158,7 @@ class _AddProductState extends State<AddProduct> {
                     ),
                   ),
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 10,
                 ),
                 Padding(
@@ -168,7 +167,7 @@ class _AddProductState extends State<AddProduct> {
                     children: [
                       Text('Enter Price of each piece of the Product',
                           style: GoogleFonts.montserrat(
-                              textStyle: TextStyle(
+                              textStyle: const TextStyle(
                                   fontSize: 12, fontWeight: FontWeight.bold))),
                     ],
                   ),
@@ -178,8 +177,8 @@ class _AddProductState extends State<AddProduct> {
                   child: TextField(
                     controller: _priceController,
                     keyboardType:
-                        TextInputType.numberWithOptions(decimal: true),
-                    decoration: InputDecoration(
+                        const TextInputType.numberWithOptions(decimal: true),
+                    decoration: const InputDecoration(
                         labelText: 'Price (INR)',
                         hintText: 'Enter Product Price',
                         border: OutlineInputBorder(),
@@ -187,18 +186,18 @@ class _AddProductState extends State<AddProduct> {
                             EdgeInsets.symmetric(vertical: 12, horizontal: 16)),
                   ),
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 10,
                 ),
                 Column(
                   children: [_buildQuantityField()],
                 ),
-                SizedBox(height: 20),
+                const SizedBox(height: 20),
                 SizedBox(
                   width: MediaQuery.of(context).size.width/1.10,
                   child: ElevatedButton(
                     onPressed: () {
-                      updateInventory();;
+                      updateInventory();
                     },
                     style: ElevatedButton.styleFrom(
                         backgroundColor: Colors.green[700],
@@ -216,7 +215,7 @@ class _AddProductState extends State<AddProduct> {
                     ),
                   ),
                 ),
-                SizedBox(height: 40,),
+                const SizedBox(height: 40,),
                 GestureDetector(
                   onTap: () {
 
@@ -224,7 +223,7 @@ class _AddProductState extends State<AddProduct> {
                   child: Text(
                     'Having Trouble Adding Product??',
                     style: GoogleFonts.montserrat(
-                        textStyle: TextStyle(
+                        textStyle: const TextStyle(
                             color: Colors.blue, fontWeight: FontWeight.w700)),
                   ),
                 ),
@@ -249,12 +248,12 @@ class _AddProductState extends State<AddProduct> {
                   const TextStyle(fontSize: 13, fontWeight: FontWeight.bold),
             ),
           ),
-          SizedBox(width: 10),
+          const SizedBox(width: 10),
           Expanded(
             child: Row(
               children: [
                 IconButton(
-                  icon: Icon(Icons.remove),
+                  icon: const Icon(Icons.remove),
                   onPressed: () => setState(() {
                     // Handle decrementing quantity (ensure it doesn't go negative)
                     if (_quantityController.text.isNotEmpty &&
@@ -264,12 +263,12 @@ class _AddProductState extends State<AddProduct> {
                     }
                   }),
                 ),
-                Container(
+                SizedBox(
                   width: 55,
                   child: TextField(
                     controller: _quantityController,
                     keyboardType: TextInputType.number,
-                    decoration: InputDecoration(
+                    decoration: const InputDecoration(
                       contentPadding: EdgeInsets.symmetric(
                           vertical: 12.0, horizontal: 16.0),
                       border: OutlineInputBorder(),
@@ -277,7 +276,7 @@ class _AddProductState extends State<AddProduct> {
                   ),
                 ),
                 IconButton(
-                  icon: Icon(Icons.add),
+                  icon: const Icon(Icons.add),
                   onPressed: () => setState(() {
                     // Handle incrementing quantity
                     _quantityController.text =
@@ -320,7 +319,7 @@ class _AddProductState extends State<AddProduct> {
             'quantity': updatedQuantity,
           });
 
-          ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+          ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
               content: Text('Product added to inventory successfully')));
         } else {
           // Handle case where product document doesn't exist

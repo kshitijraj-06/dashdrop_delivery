@@ -1,13 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-class ChatAndSupport extends StatelessWidget{
+class ChatAndSupport extends StatefulWidget{
+  const ChatAndSupport({super.key});
 
+  @override
+  State<ChatAndSupport> createState() => _ChatAndSupportState();
+}
 
+class _ChatAndSupportState extends State<ChatAndSupport> {
   @override
   Widget build(BuildContext context) {
     double width = MediaQuery.of(context).size.width;
     double height = MediaQuery.of(context).size.height;
+
     const Color background = Colors.green;
     const Color fill = Colors.white;
     final List<Color> gradient = [
@@ -49,7 +55,7 @@ class ChatAndSupport extends StatelessWidget{
                       onTap: () {
                         Navigator.pop(context);
                       },
-                      child: Icon(Icons.arrow_back),
+                      child: const Icon(Icons.arrow_back),
                     ),
                     Expanded(
                       child: Text(
@@ -73,13 +79,26 @@ class ChatAndSupport extends StatelessWidget{
                         fontSize: 24, fontWeight: FontWeight.w500)),
                 textAlign: TextAlign.center,
               ),
-              SizedBox(
+              const SizedBox(
                 height: 80,
               ),
-
-
+              Padding(
+                padding: const EdgeInsets.only(left: 13.0),
+                child: Row(
+                  children: [
+                    Text(
+                      'Chat with an Agent',
+                      style: GoogleFonts.montserrat(
+                          textStyle: const TextStyle(
+                              fontSize: 12, fontWeight: FontWeight.bold)),
+                    ),
+                  ],
+                ),
+              ),
+              const SizedBox(
+                height: 10,
+              ),
             ],
-
           ),
         )
       ],

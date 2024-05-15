@@ -57,12 +57,7 @@ class AuthService {
       }
 
       // Get Google Sign-In authentication details
-      final GoogleSignInAuthentication? googleAuth = await googleUser.authentication;
-
-      // Check if authentication failed
-      if (googleAuth == null) {
-        return false; // Authentication failed
-      }
+      final GoogleSignInAuthentication googleAuth = await googleUser.authentication;
 
       // Create Firebase credential from Google credentials
       final credential = GoogleAuthProvider.credential(

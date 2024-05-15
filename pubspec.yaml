@@ -43,6 +43,14 @@ dependencies:
   google_sign_in: ^6.2.1
   cloud_firestore: ^4.17.2
   mapmyindia_gl: ^0.3.2
+  geolocator: ^11.0.0
+  flutter_firebase_chat_core: ^1.6.7
+  file_picker: ^8.0.3
+  firebase_storage: ^11.7.5
+  flutter_chat_ui: ^1.6.12
+  image_picker: ^1.1.1
+  mime: ^1.0.5
+  open_filex: ^4.4.0
 
 dev_dependencies:
   flutter_test:

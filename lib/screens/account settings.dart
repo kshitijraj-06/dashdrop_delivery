@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 
 class AccountSettings extends StatefulWidget{
+  const AccountSettings({super.key});
+
   @override
   State<AccountSettings> createState() => _AccountSettingsState();
 }
@@ -9,7 +10,7 @@ class AccountSettings extends StatefulWidget{
 class _AccountSettingsState extends State<AccountSettings> {
   @override
   Widget build(BuildContext context) {
-   return Stack(
+   return const Stack(
      children: [
        Scaffold(
          body: Text('Account Settings'),

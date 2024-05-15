@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 class FarmerEarningsOverviewPage extends StatefulWidget {
-  const FarmerEarningsOverviewPage({Key? key}) : super(key: key);
+  const FarmerEarningsOverviewPage({super.key});
 
   @override
   State<FarmerEarningsOverviewPage> createState() => _FarmerEarningsOverviewPageState();
@@ -75,9 +75,9 @@ class _FarmerEarningsOverviewPageState extends State<FarmerEarningsOverviewPage>
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Text(
+                const Text(
                   'Total Revenue',
-                  style: const TextStyle(fontSize: 16, fontWeight: FontWeight.w500),
+                  style: TextStyle(fontSize: 16, fontWeight: FontWeight.w500),
                 ),
                 Text(
                   '₹${totalRevenue.toStringAsFixed(2)}',

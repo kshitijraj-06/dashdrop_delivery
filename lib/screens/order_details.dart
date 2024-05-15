@@ -84,7 +84,7 @@ class _OrderDetailsState extends State<OrderDetails> {
                         onTap: () {
                           Navigator.pop(context);
                         },
-                        child: Icon(Icons.arrow_back),
+                        child: const Icon(Icons.arrow_back),
                       ),
                       Expanded(
                         child: Text(
@@ -198,7 +198,7 @@ class _OrderDetailsState extends State<OrderDetails> {
             ),
             Text(
               '₹${order.total.toString()}', // Format total with 2 decimals
-              style: TextStyle(fontSize: 14, color: Colors.green),
+              style: const TextStyle(fontSize: 14, color: Colors.green),
             ),
             getStatusWidget(order.status),
           ],
