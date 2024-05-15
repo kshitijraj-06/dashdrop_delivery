@@ -1,11 +1,62 @@
+import 'dart:math';
+
+import 'package:dashdrop_delivery/screens/track_location.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:mapmyindia_gl/mapmyindia_gl.dart';
+import 'package:geolocator/geolocator.dart';
 
-class ChatAndSupport extends StatelessWidget{
+class ChatAndSupport extends StatefulWidget {
+  @override
+  State<ChatAndSupport> createState() => _ChatAndSupportState();
+}
 
+class _ChatAndSupportState extends State<ChatAndSupport> {
+  Position? userLocation;
+  late MapmyIndiaMapController controller;
+
+  Future<void> _getUserLocation() async {
+    LocationPermission permission = await Geolocator.checkPermission();
+    if (permission == LocationPermission.denied) {
+      permission = await Geolocator.requestPermission();
+    }
+
+    if (permission == LocationPermission.denied ||
+        permission == LocationPermission.deniedForever) {
+      // Handle permission denied scenario (e.g., display a message)
+      print("Location permission denied");
+      return;
+    }
+
+    try {
+      final position = await Geolocator.getCurrentPosition(
+          desiredAccuracy: LocationAccuracy.high);
+      setState(() {
+        userLocation = position;
+      });
+    } catch (e) {
+      // Handle location service errors (e.g., disabled, timeout)
+      print("Error getting location: $e");
+    }
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    _getUserLocation();
+  }
 
   @override
   Widget build(BuildContext context) {
+    MapmyIndiaAccountManager.setMapSDKKey("e5ac151416cf50ea2bbef7a0b11f417f");
+    MapmyIndiaAccountManager.setRestAPIKey("e5ac151416cf50ea2bbef7a0b11f417f");
+    MapmyIndiaAccountManager.setAtlasClientId(
+        "96dHZVzsAusFs_55bdWXYmOoLKn7fx4H5isq5gUMhQh9TDOYK3OMcurWGL98yjydKEdvUyOwVyG6HVwdmlnGtg==");
+    MapmyIndiaAccountManager.setAtlasClientSecret(
+        "lrFxI-iSEg-0wWQDwjbYlPgPkN7yA0YWdc20RE4oViP6rdKxaaVFFbD6pmm1V4z-wVMQXr6ufM3G4D91aEkXX7gbHJIMOJrf");
+
     double width = MediaQuery.of(context).size.width;
     double height = MediaQuery.of(context).size.height;
     const Color background = Colors.green;
@@ -31,8 +82,7 @@ class ChatAndSupport extends StatelessWidget{
                     colors: gradient,
                     stops: stops,
                     end: Alignment.bottomCenter,
-                    begin: Alignment.topCenter))
-        ),
+                    begin: Alignment.topCenter))),
         Scaffold(
           backgroundColor: Colors.transparent,
           body: Column(
@@ -74,15 +124,38 @@ class ChatAndSupport extends StatelessWidget{
                 textAlign: TextAlign.center,
               ),
               SizedBox(
-                height: 80,
+                height: 67,
               ),
-
-
+              Container(
+                width: width / 1.02,
+                height: height / 1.8,
+                child: userLocation == null
+                    ? Center(child: CircularProgressIndicator())
+                    : MapmyIndiaMap(
+                        initialCameraPosition: CameraPosition(
+                          target: LatLng(
+                              userLocation!.latitude, userLocation!.longitude),
+                          zoom: 15.0,
+                        ),
+                        onMapCreated: (map) => {controller = map},
+                        onStyleLoadedCallback: () => {addMarker()},
+                      ),
+              ),
+              GestureDetector(
+                onTap: () {
+                  Navigator.push(context, MaterialPageRoute(builder: (context) => LiveLocation()));
+                },
+                child: Text('Track Recent Order'),
+              )
             ],
-
           ),
         )
       ],
     );
+  }
+
+  void addMarker() async {
+    Symbol symbol = await controller.addSymbol(SymbolOptions(
+        geometry: LatLng(userLocation!.latitude, userLocation!.longitude)));
   }
 }
